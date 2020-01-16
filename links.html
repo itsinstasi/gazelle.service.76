@@ -62,10 +62,13 @@
 				<div class="header__wrap">
 					<div class="header__left">
 						<a href="./" class="header__logo">
-							<div class="header__logo-pic"><img src="https://scontent-dfw5-2.cdninstagram.com/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=scontent-dfw5-2.cdninstagram.com&_nc_ohc=vxBQJGTeZYYAX8w45a0&oh=4e8af5dd3dc6dac8ad1822e3de01117f&oe=5EB875F1&ig_cache_key=YW5vbnltb3VzX3Byb2ZpbGVfcGlj.2" alt="Грузоперевозки Ярославль"></div>
+							<div class="header__logo-pic"><img src="https://instagram.fanf1-1.fna.fbcdn.net/v/t51.2885-19/44884218_345707102882519_2446069589734326272_n.jpg?_nc_ht=instagram.fanf1-1.fna.fbcdn.net&_nc_ohc=vxBQJGTeZYYAX-VnWWB&oh=186364bd14018f313ee8d096b268def8&oe=5EB875F1" alt="Грузоперевозки Ярославль"></div>
 							<div class="header__logo-txt">gazelle.service.76</div>
 						</a>
 						<div class="header__title">Грузоперевозки Ярославль</div>
+					</div>
+					<div id="settingsContainer" class="header__right" style="display:none">
+						<button onclick="window.open('http://itsinsta.site/page.html?project=gazelle.service.76');" class="btn stories-popup__buy">Настроить</button>
 					</div>
 				</div>
 			</div>
@@ -161,7 +164,34 @@ function getFormData($form){
     return indexed_array;
 }
 
+var getUrlParameter = function getUrlParameter(sParam) {
+    var sPageURL = window.location.search.substring(1),
+        sURLVariables = sPageURL.split('&'),
+        sParameterName,
+        i;
+
+    for (i = 0; i < sURLVariables.length; i++) {
+        sParameterName = sURLVariables[i].split('=');
+
+        if (sParameterName[0] === sParam) {
+            return sParameterName[1] === undefined ? true : decodeURIComponent(sParameterName[1]);
+        }
+    }
+}
+
 $(document).ready(function(){
+	var lid = getUrlParameter("lid");
+	if (lid) {
+        localStorage.setItem("hasToken", true);
+
+		$("#settingsContainer").show();
+		$("#settingsContainer").children("btn").first().attr("onclick", 'window.open("http://itsinsta.site/invite.html?invitationId="' + lid + ')');
+	}
+	else if (localStorage.getItem("hasToken"))
+	{
+		$("#settingsContainer").show();
+	}
+
     $('form').submit(function(){
 	event.preventDefault(); //prevent default action 
 
